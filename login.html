@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - TopUpCepat</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="setting.js"></script> <!-- PANGGIL FILE SETTING -->
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+        <h2 class="text-3xl font-bold text-center text-blue-600 mb-6">🔐 Login</h2>
+        
+        <div class="space-y-4">
+            <input type="text" id="username" placeholder="Username" class="w-full p-3 border rounded-lg">
+            <input type="password" id="password" placeholder="Password" class="w-full p-3 border rounded-lg">
+            
+            <button onclick="login()" class="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold hover:bg-blue-700">Masuk</button>
+            
+            <p class="text-center text-sm">Belum punya akun? <a href="register.html" class="text-blue-600 font-semibold">Daftar disini</a></p>
+        </div>
+    </div>
+
+    <script>
+        async function login() {
+            const inputUser = document.getElementById('username').value;
+            const inputPass = document.getElementById('password').value;
+            
+            let dataServer = { users: [] };
+            try {
+                // AMBIL DATA LANGSUNG DARI GITHUB KAMU
+                const response = await fetch(DATABASE_URL);
+                dataServer = await response.json();
+                console.log("Data diambil dari Server/Github");
+            } catch (error) {
+                // Kalau offline, pakai data lokal
+                dataServer.users = JSON.parse(localStorage.getItem('users') || '[]');
+            }
+
+            const found = dataServer.users.find(u => u.user === inputUser && u.pass === inputPass);
+
+            if(found) {
+                localStorage.setItem('currentUser', JSON.stringify(found));
+                alert('Login Berhasil! Selamat Datang ' + found.name);
+                window.location.href = 'index.html';
+            } else {
+                alert('Username atau Password Salah!');
+            }
+        }
+    </script>
+</body>
+</html>

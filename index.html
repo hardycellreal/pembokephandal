@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TopUpCepat - Termurah & Terpercaya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="setting.js"></script> <!-- PANGGIL FILE SETTING -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E40AF',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Poppins', sans-serif; }
+        .gradient-bg {
+            background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+        }
+        .card-hover:hover { transform: translateY(-5px); }
+        
+        /* STYLE TOMBOL MELAYANG */
+        .floating-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+        }
+        .floating-button {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: #1E40AF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .floating-button:hover {
+            transform: scale(1.1);
+        }
+        .floating-menu {
+            position: absolute;
+            bottom: 70px;
+            right: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+        }
+        .floating-menu.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .menu-item {
+            background: #1E40AF;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-primary">HARDY CELL</h1>
+            
+            <!-- TOMBOL LOGIN & DAFTAR SUDAH DIPERBAIKI -->
+            <div id="navButtons" class="flex gap-3">
+                <a href="login.html" class="bg-primary text-white px-4 py-2 rounded-lg">Login</a>
+                <a href="register.html" class="border-2 border-primary text-primary px-4 py-2 rounded-lg">Daftar</a>
+            </div>
+
+            <div id="userInfo" class="hidden items-center gap-3">
+                <span id="userNameDisplay" class="font-medium"></span>
+                <button onclick="logout()" class="bg-red-500 text-white px-3 py-1 rounded-full text-sm">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="gradient-bg text-white py-12">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold mb-3">Solusi Top Up Termurah</h2>
+            <p class="opacity-90">Game, Pulsa, Token, Saldo E-Wallet, Semua Ada Disini!</p>
+        </div>
+    </section>
+
+    <!-- Menu Utama -->
+    <section class="py-10">
+        <div class="container mx-auto px-4">
+            <h3 class="text-2xl font-bold text-center mb-8 text-gray-800">Pilih Kategori</h3>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-5">
+                
+                <a href="order.html?type=game" class="bg-white p-6 rounded-2xl shadow text-center card-hover transition-all duration-300 border border-gray-100">
+                    <div class="w-16 h-16 bg-blue-100 text-primary rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-gamepad text-2xl"></i>
+                    </div>
+                    <h4 class="font-semibold">Top Up Game</h4>
+                    <p class="text-xs text-gray-500">MLBB, FF, PUBG, dll</p>
+                </a>
+
+                <a href="order.html?type=pulsa" class="bg-white p-6 rounded-2xl shadow text-center card-hover transition-all duration-300 border border-gray-100">
+                    <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-mobile-alt text-2xl"></i>
+                    </div>
+                    <h4 class="font-semibold">Isi Pulsa</h4>
+                    <p class="text-xs text-gray-500">All Operator</p>
+                </a>
+
+                <a href="order.html?type=token" class="bg-white p-6 rounded-2xl shadow text-center card-hover transition-all duration-300 border border-gray-100">
+                    <div class="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-bolt text-2xl"></i>
+                    </div>
+                    <h4 class="font-semibold">Token Listrik</h4>
+                    <p class="text-xs text-gray-500">PLN Prabayar</p>
+                </a>
+
+                <a href="order.html?type=ewallet" class="bg-white p-6 rounded-2xl shadow text-center card-hover transition-all duration-300 border border-gray-100">
+                    <div class="w-16 h-16 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-3">
+                        <i class="fas fa-wallet text-2xl"></i>
+                    </div>
+                    <h4 class="font-semibold">Isi Saldo</h4>
+                    <p class="text-xs text-gray-500">DANA, OVO, GoPay</p>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- TOMBOL MELAYANG CONTACT SERVICE -->
+    <!-- ========================================== -->
+    <div class="floating-container">
+        <div class="floating-menu" id="menu">
+            <a href="https://wa.me/+6281936198654" target="_blank" class="menu-item">
+                <i class="fab fa-whatsapp mr-2"></i> ADMIN DY1
+            </a>
+            <a href="https://wa.me/+6282286048313" target="_blank" class="menu-item">
+                <i class="fab fa-whatsapp mr-2"></i> ADMIN DY2
+            </a>
+        </div>
+        <div class="floating-button" id="mainBtn">
+            <i class="fas fa-headset"></i>
+        </div>
+    </div>
+
+    <script>
+        // Cek Status Login
+        const currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+        
+        if(currentUser) {
+            document.getElementById('navButtons').classList.add('hidden');
+            document.getElementById('userInfo').classList.remove('hidden');
+            document.getElementById('userInfo').classList.add('flex');
+            document.getElementById('userNameDisplay').textContent = currentUser.name;
+            
+            // Ganti Warna Web Sesuai User
+            if(currentUser.color) {
+                document.querySelector('.gradient-bg').style.background = `linear-gradient(135deg, ${currentUser.color} 0%, #3B82F6 100%)`;
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            window.location.reload();
+        }
+
+        // SCRIPT TOMBOL MELAYANG
+        const btn = document.getElementById('mainBtn');
+        const menu = document.getElementById('menu');
+
+        btn.addEventListener('click', function() {
+            menu.classList.toggle('active');
+        });
+    </script>
+
+</body>
+</html>

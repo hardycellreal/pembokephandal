@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Pesanan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="setting.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1E40AF',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen p-4">
+
+    <div class="max-w-md mx-auto bg-white rounded-2xl shadow-xl p-6">
+        <h2 class="text-2xl font-bold text-center mb-6">🛒 Detail Pesanan</h2>
+
+        <!-- PILIHAN PRODUK -->
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Pilih Produk</label>
+            <select id="productSelect" onchange="ubahProduk()" class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary">
+                <option value="0">-- Pilih Produk --</option>
+
+                <option disabled>─────── FREE FIRE ───────</option>
+                <option value="1155">Free Fire 5 Diamond - Rp 1.155</option>
+                <option value="2100">Free Fire 12 Diamond - Rp 2.100</option>
+                <option value="3500">Free Fire 20 Diamond - Rp 3.500</option>
+                <option value="7208">Free Fire 50 Diamond - Rp 7.208</option>
+                <option value="9150">Free Fire 70 Diamond - Rp 9.150</option>
+                <option value="14500">Free Fire 100 Diamond - Rp 14.500</option>
+                <option value="18500">Free Fire 140 Diamond - Rp 18.500</option>
+                <option value="31500">Free Fire 210 Diamond - Rp 31.500</option>
+                <option value="45046">Free Fire 355 Diamond - Rp 45.046</option>
+                <option value="72073">Free Fire 510 Diamond - Rp 72.073</option>
+                <option value="90600">Free Fire 720 Diamond - Rp 90.600</option>
+                <option value="183000">Free Fire 1450 Diamond - Rp 183.000</option>
+                <option value="279000">Free Fire 2180 Diamond - Rp 279.000</option>
+                <option value="464500">Free Fire 3640 Diamond - Rp 464.500</option>
+
+                <option disabled>─────── SALDO DANA ───────</option>
+                <option value="1000">DANA 1.000 - Rp 1.000</option>
+                <option value="2000">DANA 2.000 - Rp 2.000</option>
+                <option value="3000">DANA 3.000 - Rp 3.000</option>
+                <option value="4000">DANA 4.000 - Rp 4.000</option>
+                <option value="5000">DANA 5.000 - Rp 5.000</option>
+                <option value="10000">DANA 10.000 - Rp 10.000</option>
+                <option value="20000">DANA 20.000 - Rp 20.000</option>
+                <option value="25000">DANA 25.000 - Rp 25.000</option>
+                <option value="50000">DANA 50.000 - Rp 50.000</option>
+                <option value="75000">DANA 75.000 - Rp 75.000</option>
+                <option value="100000">DANA 100.000 - Rp 100.000</option>
+
+                <option disabled>─────── SALDO GOPAY ───────</option>
+                <option value="1000">GOPAY 1.000 - Rp 1.000</option>
+                <option value="2000">GOPAY 2.000 - Rp 2.000</option>
+                <option value="3000">GOPAY 3.000 - Rp 3.000</option>
+                <option value="4000">GOPAY 4.000 - Rp 4.000</option>
+                <option value="5000">GOPAY 5.000 - Rp 5.000</option>
+                <option value="10000">GOPAY 10.000 - Rp 10.000</option>
+                <option value="20000">GOPAY 20.000 - Rp 20.000</option>
+                <option value="25000">GOPAY 25.000 - Rp 25.000</option>
+                <option value="50000">GOPAY 50.000 - Rp 50.000</option>
+                <option value="75000">GOPAY 75.000 - Rp 75.000</option>
+                <option value="100000">GOPAY 100.000 - Rp 100.000</option>
+
+                <option disabled>─────── SALDO OVO ───────</option>
+                <option value="1000">OVO 1.000 - Rp 1.000</option>
+                <option value="2000">OVO 2.000 - Rp 2.000</option>
+                <option value="3000">OVO 3.000 - Rp 3.000</option>
+                <option value="4000">OVO 4.000 - Rp 4.000</option>
+                <option value="5000">OVO 5.000 - Rp 5.000</option>
+                <option value="10000">OVO 10.000 - Rp 10.000</option>
+                <option value="20000">OVO 20.000 - Rp 20.000</option>
+                <option value="25000">OVO 25.000 - Rp 25.000</option>
+                <option value="50000">OVO 50.000 - Rp 50.000</option>
+                <option value="75000">OVO 75.000 - Rp 75.000</option>
+                <option value="100000">OVO 100.000 - Rp 100.000</option>
+
+                <option disabled>─────── PULSA ───────</option>
+                <option value="5000">Pulsa 5.000 - Rp 5.000</option>
+                <option value="10000">Pulsa 10.000 - Rp 10.000</option>
+                <option value="15000">Pulsa 15.000 - Rp 15.000</option>
+                <option value="20000">Pulsa 20.000 - Rp 20.000</option>
+                <option value="25000">Pulsa 25.000 - Rp 25.000</option>
+                <option value="30000">Pulsa 30.000 - Rp 30.000</option>
+                <option value="50000">Pulsa 50.000 - Rp 50.000</option>
+                <option value="75000">Pulsa 75.000 - Rp 75.000</option>
+                <option value="100000">Pulsa 100.000 - Rp 100.000</option>
+
+                <option disabled>─────── TOKEN LISTRIK ───────</option>
+                <option value="5000">Token Listrik Rp 5.000 - Rp 5.000</option>
+                <option value="10000">Token Listrik Rp 10.000 - Rp 10.000</option>
+                <option value="15000">Token Listrik Rp 15.000 - Rp 15.000</option>
+                <option value="20000">Token Listrik Rp 20.000 - Rp 20.000</option>
+                <option value="50000">Token Listrik Rp 50.000 - Rp 50.000</option>
+                <option value="100000">Token Listrik Rp 100.000 - Rp 100.000</option>
+                <option value="200000">Token Listrik Rp 200.000 - Rp 200.000</option>
+                <option value="500000">Token Listrik Rp 500.000 - Rp 500.000</option>
+                <option value="1000000">Token Listrik Rp 1.000.000 - Rp 1.000.000</option>
+            </select>
+            <input type="hidden" id="product" value="0">
+            <input type="hidden" id="productName" value="">
+        </div>
+
+        <!-- INPUT NOMOR TUJUAN -->
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Nomor Tujuan / ID Player</label>
+            <input type="text" id="target" placeholder="Masukkan nomor atau ID..." class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary">
+        </div>
+
+        <!-- FIELD KHUSUS TOKEN LISTRIK -->
+        <div id="plnFields" class="hidden space-y-4 mb-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">No. Meter / ID Pelanggan</label>
+                <input type="text" id="no_meter" placeholder="Masukkan nomor meter..." class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary">
+            </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Nomor HP</label>
+                <input type="text" id="no_hp" placeholder="Masukkan nomor HP aktif..." class="w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary">
+            </div>
+        </div>
+
+        <!-- KODE PROMO -->
+        <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Kode Promo</label>
+            <div class="relative">
+                <input type="text" id="promo" placeholder="Masukkan kode promo..." class="w-full px-4 py-3 border rounded-lg pr-16">
+                <button onclick="cekPromo()" class="absolute right-2 top-1/2 -translate-y-1/2 bg-green-600 text-white px-3 py-1 rounded text-sm font-bold">
+                    OK
+                </button>
+            </div>
+            <p id="promoText" class="text-sm mt-1"></p>
+        </div>
+
+        <!-- RINCIAN HARGA -->
+        <div class="bg-gray-50 p-4 rounded-lg mb-6 space-y-2">
+            <div class="flex justify-between">
+                <span>Harga Awal</span>
+                <span id="hargaAwal">Rp 0</span>
+            </div>
+            <div class="flex justify-between">
+                <span>Biaya Admin</span>
+                <span>+ Rp 1.500</span>
+            </div>
+            <div id="rowDiskon" class="hidden flex justify-between text-green-600">
+                <span>Potongan Harga</span>
+                <span id="potongan">- Rp 0</span>
+            </div>
+            <hr>
+            <div class="flex justify-between font-bold text-lg text-primary">
+                <span>Total Bayar</span>
+                <span id="totalBayar">Rp 0</span>
+            </div>
+        </div>
+
+        <!-- PILIH METODE BAYAR -->
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Metode Pembayaran</label>
+            <div class="grid grid-cols-2 gap-3">
+                <button type="button" onclick="pilihMetode('dana')" class="metode-btn bg-gray-100 hover:bg-blue-500 hover:text-white py-3 rounded-lg font-bold">
+                    <i class="fab fa-cc-diners-club mr-1"></i> DANA
+                </button>
+                <button type="button" onclick="pilihMetode('qris')" class="metode-btn bg-gray-100 hover:bg-blue-500 hover:text-white py-3 rounded-lg font-bold">
+                    <i class="fas fa-qrcode mr-1"></i> QRIS
+                </button>
+            </div>
+        </div>
+
+        <!-- AREA NOMOR DANA -->
+        <div id="boxDana" class="hidden mb-6 p-4 border rounded-lg text-center">
+            <p class="font-bold mb-2">Transfer ke Nomor DANA:</p>
+            <p class="text-xl font-bold text-blue-600" id="noDana">083178509560</p>
+            <p>a.n. ${ADMIN_DANA_NAME}</p>
+        </div>
+
+        <!-- AREA QR CODE -->
+        <div id="boxQris" class="hidden mb-6 p-4 border rounded-lg text-center">
+            <p class="font-bold mb-2">Scan QR Code:</p>
+            <div id="qrisContainer" class="flex justify-center my-3"></div>
+        </div>
+
+        <!-- UPLOAD BUKTI -->
+        <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Upload Bukti Transfer</label>
+            <input type="file" id="buktiImg" accept="image/*" class="w-full border p-2 rounded">
+        </div>
+
+        <!-- TOMBOL AKSI DIGABUNG -->
+        <div class="mb-6">
+            <button onclick="kirimPesananDanBukti()" class="w-full bg-primary hover:bg-blue-700 text-white py-4 rounded-xl font-bold text-lg">
+                ✅ KONFIRMASI & KIRIM BUKTI
+            </button>
+        </div>
+    </div>
+
+    <script>
+        let diskon = 0;
+        let metodeBayar = '';
+        const FEE_ADMIN = 1500;
+
+        window.onload = function() {
+            hitungHarga();
+            const user = JSON.parse(localStorage.getItem('currentUser') || 'null');
+            if(!user) {
+                alert('Silakan Login Dulu!');
+                window.location.href = 'login.html';
+            }
+        }
+
+        function ubahProduk() {
+            const select = document.getElementById('productSelect');
+            const selectedOption = select.options[select.selectedIndex];
+            
+            document.getElementById('product').value = selectedOption.value;
+            document.getElementById('productName').value = selectedOption.text;
+            
+            // Tampilkan field khusus jika token listrik
+            if(selectedOption.text.includes('Token Listrik')) {
+                document.getElementById('plnFields').classList.remove('hidden');
+            } else {
+                document.getElementById('plnFields').classList.add('hidden');
+            }
+            
+            hitungHarga();
+        }
+
+        function hitungHarga() {
+            const hargaDasar = parseInt(document.getElementById('product').value || 0);
+            const total = hargaDasar + FEE_ADMIN - diskon;
+
+            document.getElementById('hargaAwal').textContent = formatRupiah(hargaDasar);
+            document.getElementById('totalBayar').textContent = formatRupiah(total);
+
+            if(metodeBayar === 'qris') {
+                generateQRIS(total);
+            }
+        }
+
+        function cekPromo() {
+            const kode = document.getElementById('promo').value.trim().toUpperCase();
+            
+            if(kode === "PROMO500" || kode === "HEMAT500") {
+                diskon = 500;
+                document.getElementById('promoText').textContent = "✅ Promo Aktif! Potongan Rp 500";
+                document.getElementById('promoText').className = "text-sm mt-1 text-green-600";
+                document.getElementById('rowDiskon').classList.remove('hidden');
+                document.getElementById('potongan').textContent = "- Rp 500";
+            } else {
+                diskon = 0;
+                document.getElementById('promoText').textContent = "❌ Kode promo tidak valid";
+                document.getElementById('promoText').className = "text-sm mt-1 text-red-600";
+                document.getElementById('rowDiskon').classList.add('hidden');
+            }
+            
+            hitungHarga();
+        }
+
+        function pilihMetode(metode) {
+            metodeBayar = metode;
+            document.getElementById('boxDana').classList.add('hidden');
+            document.getElementById('boxQris').classList.add('hidden');
+
+            // Ubah tampilan tombol
+            document.querySelectorAll('.metode-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-500', 'text-white');
+                btn.classList.add('bg-gray-100');
+            });
+            event.target.classList.remove('bg-gray-100');
+            event.target.classList.add('bg-blue-500', 'text-white');
+
+            if(metode === 'dana') {
+                document.getElementById('boxDana').classList.remove('hidden');
+            } else {
+                document.getElementById('boxQris').classList.remove('hidden');
+                const totalHarga = parseInt(document.getElementById('product').value || 0) + FEE_ADMIN - diskon;
+                generateQRIS(totalHarga);
+            }
+        }
+
+        function generateQRIS(nominal) {
+            const container = document.getElementById('qrisContainer');
+            container.innerHTML = "";
+            
+            const dataQR = `dana://transfer?phone=${ADMIN_DANA}&amount=${nominal}`;
+            
+            new QRCode(container, {
+                text: dataQR,
+                width: 180,
+                height: 180,
+                colorDark : "#000000",
+                colorLight : "#ffffff",
+            });
+        }
+
+        function kirimPesananDanBukti() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            const target = document.getElementById('target').value;
+            const noMeter = document.getElementById('no_meter').value;
+            const noHp = document.getElementById('no_hp').value;
+            const productValue = document.getElementById('product').value;
+            const productName = document.getElementById('productName').value;
+            const totalBayar = parseInt(document.getElementById('product').value || 0) + FEE_ADMIN - diskon;
+            const fileInput = document.getElementById('buktiImg');
+
+            // Validasi
+            if(!target || productValue == 0) {
+                alert('⚠️ Silakan pilih produk dan isi nomor tujuan / ID!');
+                return;
+            }
+
+            if(productName.includes('Token Listrik')) {
+                if(!noMeter || !noHp) {
+                    alert('⚠️ Silakan isi No. Meter dan Nomor HP!');
+                    return;
+                }
+            }
+
+            if(!metodeBayar) {
+                alert('⚠️ Silakan pilih metode pembayaran!');
+                return;
+            }
+
+            if(fileInput.files.length == 0) {
+                alert('⚠️ Silakan pilih file bukti transfer!');
+                return;
+            }
+
+            // Simpan ke riwayat
+            const riwayat = JSON.parse(localStorage.getItem('riwayatPesanan') || '[]');
+            const pesananBaru = {
+                id: Date.now(),
+                nama: user.nama,
+                produk: productName,
+                nomorTujuan: target,
+                noMeter: noMeter,
+                noHp: noHp,
+                total: totalBayar,
+                metode: metodeBayar,
+                tanggal: new Date().toLocaleString('id-ID')
+            };
+            riwayat.unshift(pesananBaru);
+            localStorage.setItem('riwayatPesanan', JSON.stringify(riwayat));
+
+            // Kirim email
+            const subject = encodeURIComponent(`Pesanan & Bukti - ${productName}`);
+            const body = encodeURIComponent(`
+                Detail Pesanan:
+                Nama: ${user.nama}
+                Produk: ${productName}
+                Nomor Tujuan: ${target}
+                ${productName.includes('Token Listrik') ? `No. Meter: ${noMeter}\nNomor HP: ${noHp}` : ''}
+                Total Bayar: Rp ${totalBayar.toLocaleString('id-ID')}
+                Metode: ${metodeBayar.toUpperCase()}
+                Tanggal: ${pesananBaru.tanggal}
+
+                *Bukti transfer sudah dilampirkan.
+            `);
+
+            window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${ADMIN_EMAIL}&su=${subject}&body=${body}`, '_blank');
+            
+            alert('✅ Sukses Terkirim! Silakan tunggu proses transaksi...');
+        }
+
+        function formatRupiah(angka) {
+            return 'Rp ' + angka.toLocaleString('id-ID');
+        }
+    </script>
+
+</body>
+</html>
